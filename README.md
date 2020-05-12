@@ -1,4 +1,6 @@
+#AD
+BreakingIn.To
 # swatconfigs
-Configs Made By SWAT - BreakingIn.To
+Configs Made By SWAT.
 # EDUCATIONAL PURPOSES ONLY!
 I WILL NOT BE HELD RESPONSIBLE FOR ANYTHING YOU DO.
