@@ -2,11 +2,10 @@
 Configs Made By SWAT.
 
 # Special Thanks To
-NALON
+NALON - https://www.youtube.com/channel/UCsa13A3Tc4JSWJwQoG5AUZQ
 
 # ADVERTISEMENT 
 BreakingIn.To
 
-# EDUCATIONAL PURPOSES ONLY!
-- I WILL NOT BE HELD RESPONSIBLE FOR ANYTHING YOU DO.
-- These configs are only made for studying and examining the code.
+# READ!
+- Performing (D)DoS attacks or credential stuffing on sites you do not own (or you do not have permission to test) is illegal! I will not be held responsible for improper use of this software.
