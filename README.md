@@ -4,7 +4,7 @@ Configs Made By SWAT.
 # Special Thanks To
 NALON
 
-# AD
+# ADVERTISEMENT 
 BreakingIn.To
 
 # EDUCATIONAL PURPOSES ONLY!
