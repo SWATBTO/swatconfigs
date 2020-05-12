@@ -1,7 +1,7 @@
 # swatconfigs
 Configs Made By SWAT.
 
-# Special Thanks To
+# Special thanks to
 NALON - https://www.youtube.com/channel/UCsa13A3Tc4JSWJwQoG5AUZQ
 
 # ADVERTISEMENT 
