@@ -2,8 +2,8 @@
 - Cracked.to - CrackedTo.loli
 
 # Special thanks to
-SWAT - https://breakingin.to/profile/5701-swat/
-NALON - https://www.youtube.com/channel/UCsa13A3Tc4JSWJwQoG5AUZQ
+- SWAT - https://breakingin.to/profile/5701-swat
+- NALON - https://www.youtube.com/channel/UCsa13A3Tc4JSWJwQoG5AUZQ
 
 # ADVERTISEMENT 
 BreakingIn.To
