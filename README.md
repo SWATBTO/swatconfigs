@@ -1,9 +1,6 @@
 # Configs Made
 - Cracked.to - CrackedTo.loli
 
-# swatconfigs
-Experimental Configs for OPEN BULLET
-
 # Special thanks to
 SWAT - https://breakingin.to/profile/5701-swat/
 NALON - https://www.youtube.com/channel/UCsa13A3Tc4JSWJwQoG5AUZQ
