@@ -1,5 +1,5 @@
 # swatconfigs
-Configs Made By SWAT.
+Experimental Configs for OPEN BULLET
 
 # Special thanks to
 NALON - https://www.youtube.com/channel/UCsa13A3Tc4JSWJwQoG5AUZQ
