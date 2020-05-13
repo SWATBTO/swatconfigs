@@ -1,6 +1,7 @@
 # Configs Made
 - Cracked.to - CrackedTo.loli
 - Sinister.ly - Sinisterly.loli
+- chegg.com - 
 
 # Special thanks to
 - SWAT - https://breakingin.to/profile/5701-swat
