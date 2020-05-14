@@ -3,6 +3,7 @@
 - Sinister.ly - Sinisterly.loli
 - chegg.com - chegg.com.loli
 - cracking.org - cracking.org.loli
+- Crackingpro.com - Crackingpro.com.loli
 
 # Special thanks to
 - SWAT - https://breakingin.to/profile/5701-swat
