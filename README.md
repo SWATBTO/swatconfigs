@@ -6,6 +6,7 @@
 - NALON - https://breakingin.to/profile/1774-nalon/
 
 # Configs Made
+- Nulled.To	- Nulledto.loli	
 - Cracked.to - CrackedTo.loli
 - Sinister.ly - Sinisterly.loli
 - chegg.com - chegg.com.loli
