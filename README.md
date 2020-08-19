@@ -1,6 +1,5 @@
 # ADVERTISEMENT(S) 
 - https://breakingin.to
-- https://discord.gg/7FsXpwa
 
 # Special thanks to
 - NALON - https://breakingin.to/profile/1774-nalon/
